@@ -13,11 +13,11 @@ public class Cidade {
         return id;
     }
 
-    public double getX(){
+    public double getx(){
         return x;
     }
 
-    public double getY(){
+    public double gety(){
         return y;
     }
 
@@ -31,6 +31,18 @@ public class Cidade {
 
     public void setY(double y){
         this.y =y;
+    }
+
+    //formula da distancia euclidiana : raiz de [( (x2-x1)^2 + (y2-y1)^2 )]
+
+    public double calcularDistanciaEuclidiana(Cidade segundo){
+        double segundox = segundo.getx();
+        double segundoy = segundo.gety();
+        double deltax = Math.pow(this.x - segundox, 2);
+        double deltay = Math.pow(this.y - segundoy, 2);
+
+        return Math.sqrt(deltax + deltay);
+
     }
     
 }
