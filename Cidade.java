@@ -44,5 +44,11 @@ public class Cidade {
         return Math.sqrt(deltax + deltay);
 
     }
+
+    //adicionei esse toString aqui
+
+    public String toString(){
+        return String.valueOf(this.id);
+    }
     
 }
