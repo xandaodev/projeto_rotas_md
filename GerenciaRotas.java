@@ -21,16 +21,16 @@ public class GerenciaRotas {
             // le a primeira linha (15)
             int numCidades =scanner.nextInt();
             for(int i=1;i <= numCidades;i++){
-                double x = scanner.nextDouble();
-                double y = scanner.nextDouble();
+                double x=scanner.nextDouble();
+                double y =scanner.nextDouble();
                 Cidade novaCidade = new Cidade(i, x, y);
                 this.cidades.add(novaCidade);
             }
 
-            System.out.println("arquivo " + entrada + " lido com sucesso. " + this.cidades.size() + " cidades carregadas.");
+            System.out.println("arquivo "+ entrada + " lido com sucesso. " + this.cidades.size()+ " cidades carregadas.");
 
         }catch(FileNotFoundException e){
-            System.err.println("erro, arquivo '" + entrada + "' nao encontrado.");
+            System.err.println("erro: arquivo '" + entrada + "' nao encontrado.");
             e.printStackTrace();
         }
         
