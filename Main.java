@@ -15,6 +15,7 @@ public class Main {
 
         double[][] matriz = gerenciador.getMatrizDistancias();
 
+//oi amor
 
         //List<Cidade> listaDeCidades = gerenciador.getCidades();
 
