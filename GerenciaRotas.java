@@ -3,6 +3,8 @@ import java.util.*;
 
 public class GerenciaRotas {
     private List<Cidade> cidades;
+    private double[][] matrizDistancias;
+    private int numeroCidades;
 
     public GerenciaRotas(){
         this.cidades = new ArrayList<>();
@@ -33,7 +35,24 @@ public class GerenciaRotas {
             System.err.println("erro: arquivo '" + entrada + "' nao encontrado.");
             e.printStackTrace();
         }
+    }
+
+    public void preencheMatrizDistancias(){
+            this.matrizDistancias = new double[this.numeroCidades][this.numeroCidades];
+            for(int i=0;i<this.numeroCidades;i++){
+                for(int j=0;j<this.numeroCidades;j++){
+                    Cidade cidadei = this.cidades.get(i);
+                    Cidade cidadej = this.cidades.get(j);
+                    double distancia = cidadei.calcularDistanciaEuclidiana(cidadej);
+                    this.matrizDistancias[i][j]= distancia;
+                }
+            }
+    }
+
+    public double[][] getMatrizDistancias(){
+        return this.matrizDistancias;
+    }
         
     }
     
-}
+
