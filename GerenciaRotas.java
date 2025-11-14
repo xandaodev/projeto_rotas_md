@@ -21,8 +21,8 @@ public class GerenciaRotas {
         try(Scanner scanner = new Scanner(new File(entrada))){
 
             // le a primeira linha (15)
-            int numCidades =scanner.nextInt();
-            for(int i=1;i <= numCidades;i++){
+            this.numeroCidades =scanner.nextInt();
+            for(int i=1;i <= numeroCidades;i++){
                 double x=scanner.nextDouble();
                 double y =scanner.nextDouble();
                 Cidade novaCidade = new Cidade(i, x, y);

@@ -11,11 +11,22 @@ public class Main {
 
         GerenciaRotas gerenciador = new GerenciaRotas();
         gerenciador.lerArquivoEntrada("instancia.txt");
+        gerenciador.preencheMatrizDistancias();
 
-        List<Cidade> listaDeCidades = gerenciador.getCidades();
+        double[][] matriz = gerenciador.getMatrizDistancias();
 
-        System.out.println("primeira cidade: ID " + listaDeCidades.get(0).getId());
-        System.out.println("ultima cidade: ID " + listaDeCidades.get(listaDeCidades.size()-1).getId());
+
+        //List<Cidade> listaDeCidades = gerenciador.getCidades();
+
+        //System.out.println("primeira cidade: ID " + listaDeCidades.get(0).getId());
+        //System.out.println("ultima cidade: ID " + listaDeCidades.get(listaDeCidades.size()-1).getId());
+
+        // OS INDICES DAS CIDADES É NUMERO DA CIDADE-1 => EXMPLO: CIDADE 1 TEM INDICE 0
+        System.out.println("distancia entre cidade 1 e cidade 3: " + matriz[0][2]);
+
+        System.out.println("distancia entre cidade 4 e cidade 8: " + matriz[3][7]);
+
+        System.out.println("distancia entre cidade 3 e cidade 6: " + matriz[2][5]);
     }
     
 }
