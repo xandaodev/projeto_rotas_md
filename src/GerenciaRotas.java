@@ -19,9 +19,8 @@ public class GerenciaRotas {
     public void lerArquivoEntrada(String entrada) throws Excecoes{
         this.cidades.clear();   //esvazia a lista
 
-        // aqui tem que ter o try ctach pra evitar bo
-        try{
-            Scanner scanner = new Scanner(new File(entrada));
+        try (Scanner scanner = new Scanner(new File(entrada))){
+            
             // lê a primeira linha (informa o número de cidades)
             this.numeroCidades =scanner.nextInt();
 
@@ -73,8 +72,6 @@ public class GerenciaRotas {
         contadorCaminhos = 0;           
         melhorCaminho = new ArrayList<>();  //declara uma nova lista zerada para cada iteração
 
-        //falta chamar buscaTSP(...){...}
-        //oq tava faltando:
         buscaTSP_recursiva(indiceCidadeInicial, indiceCidadeInicial, 1, distanciaParcial, visitado, caminhoParcial);
     }
 
@@ -94,7 +91,7 @@ public class GerenciaRotas {
             if(distanciaFinal < menorDistancia){
                 menorDistancia = distanciaFinal;
                 copiaLista(caminhoParcial, melhorCaminho);
-                melhorCaminho.add(cidadeInicial);
+                melhorCaminho.add(cidades.get(cidadeInicial).getId());
             }
             return;
 
@@ -107,12 +104,9 @@ public class GerenciaRotas {
                     int novaQtd = qtdVisitadas + 1;     //atualiza a quantidade de cidades visitadas
                     double novaDist = distanciaParcial + matrizDistancias[cidadeAtual][i];   //incrementa a distancia parcial
 
-                    //adicioanndo uma poda para otimizar mais o algoritmo
-                    //tipo, se o caminho que tamo construindo agr épior que o melhor caminho completo que ja achamos
-                    //ent nem vale a pena continuar, ent tem esse if aqui:
                     if(novaDist<menorDistancia){
                     visitado[i] = true;
-                    caminhoParcial.add(i);  //add a cidade ao registro do caminho percorrido
+                    caminhoParcial.add(cidades.get(i).getId());  //add a cidade ao registro do caminho percorrido
                     
                     buscaTSP_recursiva(i, cidadeInicial, novaQtd, novaDist, visitado, caminhoParcial);
                     //backtracking
@@ -124,8 +118,6 @@ public class GerenciaRotas {
         }
     }
 
-    //adicionando getter de menor distancia e melhor caminho:
-
     public double getMenorDistancia(){
         return this.menorDistancia;
     }
@@ -133,7 +125,7 @@ public class GerenciaRotas {
         return this.melhorCaminho;
     }
     
-    //funcoes dos dados e analises
+    //funcoes dos dados e análises:
 
     public static long fatorial(int n){
         //aqui tem que ter a condicao tmb caso o n for 0, ai entra aquelas parada de tratamento de excessao e throw
@@ -148,7 +140,6 @@ public class GerenciaRotas {
         return resultado;
     }
 
-    //funcao de permutaçao
     public static long permutacao(int n,int k){
         if(n<0 || k<0 || k>n)
             throw new IllegalArgumentException();   //parâmetros inválidos 
@@ -156,12 +147,9 @@ public class GerenciaRotas {
         return fatorial(n) / fatorial(n-k);
     }
 
-    //funcao de combinacao
     public static long combinacao(int n,int k){
         if(n<0 || k<0 || k>n)
             throw new IllegalArgumentException();   //parâmetros inválidos 
         return fatorial(n)/(fatorial(k) * fatorial(n-k));
     }
 }
-//te amo <3
-//te amo fofa <3

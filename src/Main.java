@@ -7,7 +7,7 @@ public class Main {
         GerenciaRotas gerenciador = new GerenciaRotas();
 
         try{
-            gerenciador.lerArquivoEntrada("instancia.txt");
+            gerenciador.lerArquivoEntrada("C:\\Users\\User\\Desktop\\Java\\md\\projeto_rotas_md\\src\\instancia.txt");
             gerenciador.preencheMatrizDistancias();
         }catch(Excecoes e){
             System.out.println("erro ao abrir o arquivo " + e.getMessage());
@@ -18,7 +18,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean rodando =true;
 
-        //fazendo um menu interativo com while
         while(rodando){
             System.out.println("1 - resolver Caixeiro Viajante ");
             System.out.println("2 - calcular analise combinatoria");
@@ -27,14 +26,13 @@ public class Main {
 
             int opcao = scanner.nextInt();
 
-            //amor aqui tmb se vc quiser colocar um try catch, mas assim o matheus que cobra isso n precisa
             switch(opcao){
                 case 1:
-                    System.out.print("digite a cidade de origem (1 a 12): ");
+                    System.out.print("digite a cidade de origem - 1 a " + gerenciador.getCidades().size() + "\n");
                     int idCidadeInicial =scanner.nextInt();
                     int indiceCidadeInicial = idCidadeInicial - 1;//ajustando indice
-                    if(indiceCidadeInicial <0 || indiceCidadeInicial >= 12) {
-                            System.out.println("essa cidade nao existe, escolha um numero entre 1 e 12.");
+                    if(indiceCidadeInicial <0 || indiceCidadeInicial >= gerenciador.getCidades().size()) {
+                            throw new IllegalArgumentException("\nessa cidade nao existe, escolha um numero entre 1 e 12.\n");
                     }else{
                             gerenciador.TSP(indiceCidadeInicial);
                             System.out.println("menor distancia encontrada: " + gerenciador.getMenorDistancia());
@@ -42,7 +40,7 @@ public class Main {
                             List<Integer> melhorCaminhoIndices =gerenciador.getMelhorCaminho();
                             List<Integer> melhorCaminhoIDs = new ArrayList<>();
                             for(Integer indice : melhorCaminhoIndices){
-                                melhorCaminhoIDs.add(indice+1);
+                                melhorCaminhoIDs.add(indice);
                             }
                             System.out.println("melhor caminho: " + melhorCaminhoIDs);
                     }
@@ -60,7 +58,7 @@ public class Main {
                                 long result = GerenciaRotas.fatorial(n);
                                 System.out.println("resultado: " + n + "! = " + result);    
                             }catch(IllegalArgumentException e){
-                                System.out.println("parametro invalido!");
+                                System.out.println("\nparametro invalido!\n");
                                 e.printStackTrace();
                             }
                             
@@ -76,7 +74,7 @@ public class Main {
                                     long result = GerenciaRotas.permutacao(n, k);
                                     System.out.println("Permutação P(" + n + ", " +k + ") = " + result);    
                                 }catch(IllegalArgumentException e){
-                                    System.out.println("argumentos invalidos!");
+                                    System.out.println("\nargumentos invalidos!\n");
                                     e.printStackTrace();
                                 }
                                 
@@ -85,13 +83,13 @@ public class Main {
                                 long result =GerenciaRotas.combinacao(n, k);
                                 System.out.println("Combinação C(" +n + "," +k+ ") = " + result);   
                                 }catch(IllegalArgumentException e){
-                                    System.out.println("argumentos invalidos!");
+                                    System.out.println("\nargumentos invalidos!\n");
                                     e.printStackTrace();
                                 }
                                 
                             }
                         }else{
-                            System.out.println("opcao invalida, escolha 1,2 ou 3.");
+                            System.out.println("\nopcao invalida, escolha 1,2 ou 3.\n");
                         }
                         break;
                 case 0:
@@ -99,30 +97,10 @@ public class Main {
                         System.out.println("saindo do programa");
                         break;
                 default:
-                        System.out.println("opcao invalida, digite outro numero");
+                        System.out.println("\nopcao invalida, digite outro numero\n");
                         break;
             }
         }
-
-        /* 
-        //chamando metodo tsp
-        int cidadeInicial =0;//começando da cidade 1(indice 0, como eu tinha te falado)
-
-        gerenciador.TSP(cidadeInicial);//executando o algoritmo
-
-        System.out.println("menor distancia encontrada: "+ gerenciador.getMenorDistancia());
-
-        List<Integer> melhorCaminhoIndices = gerenciador.getMelhorCaminho();
-        List<Integer> melhorCaminhoIDs = new ArrayList<>();
-        
-        //como os indices das cidades são o numero delas - 1, fiz esse for no final só pra formatar e imprimir certo
-        for(Integer indice : melhorCaminhoIndices){
-            melhorCaminhoIDs.add(indice + 1);
-        }
-
-        System.out.println("melhor caminho - rota: " +melhorCaminhoIDs);
-        */
         scanner.close();
     }
-    
 }
