@@ -15,9 +15,6 @@ public class Main {
 
         double[][] matriz = gerenciador.getMatrizDistancias();
 
-//oi amor
-//oi meu amor et te amo
-
         //List<Cidade> listaDeCidades = gerenciador.getCidades();
 
         //System.out.println("primeira cidade: ID " + listaDeCidades.get(0).getId());
