@@ -32,7 +32,7 @@ public class Main {
                     int idCidadeInicial =scanner.nextInt();
                     int indiceCidadeInicial = idCidadeInicial - 1;//ajustando indice
                     if(indiceCidadeInicial <0 || indiceCidadeInicial >= gerenciador.getCidades().size()) {
-                            throw new IllegalArgumentException("\nessa cidade nao existe, escolha um numero entre 1 e 12.\n");
+                            throw new IllegalArgumentException("\nessa cidade nao existe, escolha um numero entre 1 e " + gerenciador.getCidades().size() + "\n");
                     }else{
                             gerenciador.TSP(indiceCidadeInicial);
                             System.out.println("menor distancia encontrada: " + gerenciador.getMenorDistancia());
