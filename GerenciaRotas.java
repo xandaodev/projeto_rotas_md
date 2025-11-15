@@ -146,6 +146,13 @@ public class GerenciaRotas {
         return resultado;
     }
 
+    //funcao de permutaçao
+    public static long permutacao(int n,int k){
+        //aqui tmb deve ter que tratar a excessao de quando o k for menor que n ou quando k for negativo(k<n||k<0) com throw
+        //P(n,k) = n! dividido por (n-k)!
+        return fatorial(n) / fatorial(n-k);
+    }
+
 
 
 
