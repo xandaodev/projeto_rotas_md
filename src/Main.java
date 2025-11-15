@@ -1,16 +1,24 @@
+package projeto_rotas_md.src;
 import java.util.*;
+
 public class Main {
     public static void main(String[] args){
 
         GerenciaRotas gerenciador = new GerenciaRotas();
-        gerenciador.lerArquivoEntrada("instancia.txt");
-        gerenciador.preencheMatrizDistancias();
 
+        try{
+            gerenciador.lerArquivoEntrada("instancia.txt");
+            gerenciador.preencheMatrizDistancias();
+        }catch(Excecoes e){
+            System.out.println("erro ao abrir o arquivo " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+        
         Scanner scanner = new Scanner(System.in);
         boolean rodando =true;
 
         //fazendo um menu interativo com while
-
         while(rodando){
             System.out.println("1 - resolver Caixeiro Viajante ");
             System.out.println("2 - calcular analise combinatoria");
@@ -48,8 +56,14 @@ public class Main {
                     if(tipoCalculo == 1){
                             System.out.print("valor de n: ");
                             int n=scanner.nextInt();
-                            long result = GerenciaRotas.fatorial(n);
-                            System.out.println("resultado: " + n + "! = " + result);
+                            try{
+                                long result = GerenciaRotas.fatorial(n);
+                                System.out.println("resultado: " + n + "! = " + result);    
+                            }catch(IllegalArgumentException e){
+                                System.out.println("parametro invalido!");
+                                e.printStackTrace();
+                            }
+                            
 
                         }else if(tipoCalculo ==2 || tipoCalculo == 3){
                             System.out.print("valor de n: ");
@@ -58,11 +72,23 @@ public class Main {
                             int k =scanner.nextInt();
 
                             if(tipoCalculo == 2){
-                                long result = GerenciaRotas.permutacao(n, k);
-                                System.out.println("Permutação P(" + n + ", " +k + ") = " + result);
+                                try{
+                                    long result = GerenciaRotas.permutacao(n, k);
+                                    System.out.println("Permutação P(" + n + ", " +k + ") = " + result);    
+                                }catch(IllegalArgumentException e){
+                                    System.out.println("argumentos invalidos!");
+                                    e.printStackTrace();
+                                }
+                                
                             }else{
+                                try{
                                 long result =GerenciaRotas.combinacao(n, k);
-                                System.out.println("Combinação C(" +n + "," +k+ ") = " + result);
+                                System.out.println("Combinação C(" +n + "," +k+ ") = " + result);   
+                                }catch(IllegalArgumentException e){
+                                    System.out.println("argumentos invalidos!");
+                                    e.printStackTrace();
+                                }
+                                
                             }
                         }else{
                             System.out.println("opcao invalida, escolha 1,2 ou 3.");

@@ -1,3 +1,4 @@
+package projeto_rotas_md.src;
 public class Cidade {
     private int id;
     private double x;

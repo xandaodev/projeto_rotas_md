@@ -1,3 +1,4 @@
+package projeto_rotas_md.src;
 import java.io.*;
 import java.util.*;
 
@@ -15,12 +16,12 @@ public class GerenciaRotas {
         return this.cidades;
     }
 
-    public void lerArquivoEntrada(String entrada){
+    public void lerArquivoEntrada(String entrada) throws Excecoes{
         this.cidades.clear();   //esvazia a lista
 
         // aqui tem que ter o try ctach pra evitar bo
-        try(Scanner scanner = new Scanner(new File(entrada))){
-
+        try{
+            Scanner scanner = new Scanner(new File(entrada));
             // lê a primeira linha (informa o número de cidades)
             this.numeroCidades =scanner.nextInt();
 
@@ -33,13 +34,13 @@ public class GerenciaRotas {
             System.out.println("arquivo "+ entrada + " lido com sucesso. " + this.cidades.size()+ " cidades carregadas.");
 
         }catch(FileNotFoundException e){
-            System.err.println("erro: arquivo '" + entrada + "' nao encontrado.");
             e.printStackTrace();
+            throw new Excecoes("arquivo" + entrada + "nao encontrado", e);  //joga a exceção pro segundo construtor da classe Excecoes
         }
     }
 
     public void preencheMatrizDistancias(){
-        this.matrizDistancias = new double[this.numeroCidades][this.numeroCidades];
+        this.matrizDistancias = new double[this.numeroCidades][this.numeroCidades]; //depende da leitura correta do arquivo
         
         for(int i=0; i<this.numeroCidades; i++){
             for(int j=0; j<this.numeroCidades; j++){
@@ -138,7 +139,8 @@ public class GerenciaRotas {
         //aqui tem que ter a condicao tmb caso o n for 0, ai entra aquelas parada de tratamento de excessao e throw
         if(n==0 || n==1){
             return 1;
-        }
+        }else if(n < 0)
+            throw new IllegalArgumentException();   //parâmetro inválido
         long resultado =1;//long pra evitar qualquer problema
         for(int i=2;i <=n;i++){
             resultado *=i;
@@ -148,25 +150,18 @@ public class GerenciaRotas {
 
     //funcao de permutaçao
     public static long permutacao(int n,int k){
-        //aqui tmb deve ter que tratar a excessao de quando o k for menor que n ou quando k for negativo(k<n||k<0) com throw
+        if(n<0 || k<0 || k>n)
+            throw new IllegalArgumentException();   //parâmetros inválidos 
         //P(n,k) = n! dividido por (n-k)!
         return fatorial(n) / fatorial(n-k);
     }
 
     //funcao de combinacao
     public static long combinacao(int n,int k){
-        //amor aqui tmb tem q ter o tratamento de excessao com throw quando k<n ou k for negativo
-        //combinacao => C(n,k) = n! dividido por (k! * (n-k)!) (dps confwre se ta certo):
+        if(n<0 || k<0 || k>n)
+            throw new IllegalArgumentException();   //parâmetros inválidos 
         return fatorial(n)/(fatorial(k) * fatorial(n-k));
-
     }
-
-
-
-
-
-
-
 }
 //te amo <3
 //te amo fofa <3
