@@ -75,4 +75,44 @@ protected List<Integer> melhorCaminho;
         //falta chamar buscaTSP(...){...}
     }
 
+    public void copiaLista(List<Integer> origem, List<Integer> destino){
+        destino.clear();
+        destino.addAll(origem);
     }
+
+    //onde estou, por onde já passei, quanto já andei
+    public void buscaTSP_recursiva(int cidadeAtual, int cidadeInicial, int qtdVisitadas, double distanciaParcial, boolean[] visitado, List<Integer> caminhoParcial){
+
+        //caso base
+        if(qtdVisitadas == numeroCidades){     //caso base -> já percorreu todas as cidades
+            double distanciaFinal = matrizDistancias[cidadeAtual][cidadeInicial] + distanciaParcial;
+            contadorCaminhos++;     //+1 possível caminho registrado
+
+            if(distanciaFinal < menorDistancia){
+                menorDistancia = distanciaFinal;
+                copiaLista(caminhoParcial, melhorCaminho);
+                melhorCaminho.add(cidadeInicial);
+            }
+            return;
+
+        //recursão
+        }else{     
+            for(int i = 0; i < numeroCidades; i++){
+//i é equivalente à 'próxima cidade'
+                if(visitado[i] == true) continue;   //cidade ja foi visitada
+                else if(visitado[i] == false){
+                    int novaQtd = qtdVisitadas + 1;     //atualiza a quantidade de cidades visitadas
+                    double novaDist = distanciaParcial + matrizDistancias[cidadeAtual][i];   //incrementa a distancia parcial
+
+                    visitado[i] = true;
+                    caminhoParcial.add(i);  //add a cidade ao registro do caminho percorrido
+                    
+                    buscaTSP_recursiva(i, cidadeInicial, novaQtd, novaDist, visitado, caminhoParcial);
+                    //backtracking
+                    caminhoParcial.remove(caminhoParcial.size() - 1);
+                    visitado[i] = false;
+                }
+            }
+        }
+    }
+}
