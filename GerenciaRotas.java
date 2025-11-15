@@ -55,9 +55,9 @@ public class GerenciaRotas {
         return this.matrizDistancias;
     }
     
-protected double menorDistancia;
-protected int contadorCaminhos; //contabiliza a quantidade de caminhos (COMPLETOS) possíveis
-protected List<Integer> melhorCaminho;
+    protected double menorDistancia;
+    protected int contadorCaminhos; //contabiliza a quantidade de caminhos (COMPLETOS) possíveis
+    protected List<Integer> melhorCaminho;
 
     public void TSP (int indiceCidadeInicial){      //setup pra recursão
         boolean[] visitado = new boolean[numeroCidades];    //armazena quais cidades já foram visitadas
@@ -73,6 +73,8 @@ protected List<Integer> melhorCaminho;
         melhorCaminho = new ArrayList<>();  //declara uma nova lista zerada para cada iteração
 
         //falta chamar buscaTSP(...){...}
+        //oq tava faltando:
+        buscaTSP_recursiva(indiceCidadeInicial, indiceCidadeInicial, 1, distanciaParcial, visitado, caminhoParcial);
     }
 
     public void copiaLista(List<Integer> origem, List<Integer> destino){
@@ -104,6 +106,10 @@ protected List<Integer> melhorCaminho;
                     int novaQtd = qtdVisitadas + 1;     //atualiza a quantidade de cidades visitadas
                     double novaDist = distanciaParcial + matrizDistancias[cidadeAtual][i];   //incrementa a distancia parcial
 
+                    //adicioanndo uma poda para otimizar mais o algoritmo
+                    //tipo, se o caminho que tamo construindo agr épior que o melhor caminho completo que ja achamos
+                    //ent nem vale a pena continuar, ent tem esse if aqui:
+                    if(novaDist<menorDistancia){
                     visitado[i] = true;
                     caminhoParcial.add(i);  //add a cidade ao registro do caminho percorrido
                     
@@ -111,9 +117,19 @@ protected List<Integer> melhorCaminho;
                     //backtracking
                     caminhoParcial.remove(caminhoParcial.size() - 1);
                     visitado[i] = false;
+                    }
                 }
             }
         }
+    }
+
+    //adicionando getter de menor distancia e melhor caminho:
+
+    public double getMenorDistancia(){
+        return this.menorDistancia;
+    }
+    public List<Integer> getMelhorCaminho(){
+        return this.melhorCaminho;
     }
 }
 //te amo <3
