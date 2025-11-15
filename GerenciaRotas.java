@@ -131,6 +131,27 @@ public class GerenciaRotas {
     public List<Integer> getMelhorCaminho(){
         return this.melhorCaminho;
     }
+    
+    //funcoes dos dados e analises
+
+    public static long fatorial(int n){
+        //aqui tem que ter a condicao tmb caso o n for 0, ai entra aquelas parada de tratamento de excessao e throw
+        if(n==0 || n==1){
+            return 1;
+        }
+        long resultado =1;//long pra evitar qualquer problema
+        for(int i=2;i <=n;i++){
+            resultado *=i;
+        }
+        return resultado;
+    }
+
+
+
+
+
+
+
 }
 //te amo <3
 //te amo fofa <3

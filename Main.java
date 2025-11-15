@@ -26,7 +26,7 @@ public class Main {
         List<Integer> melhorCaminhoIndices = gerenciador.getMelhorCaminho();
         List<Integer> melhorCaminhoIDs = new ArrayList<>();
         
-        //como os indices das cidades são o numero delas - 1, fiz esse for no final só pra formatar imprimir certo
+        //como os indices das cidades são o numero delas - 1, fiz esse for no final só pra formatar e imprimir certo
         for(Integer indice : melhorCaminhoIndices){
             melhorCaminhoIDs.add(indice + 1);
         }
