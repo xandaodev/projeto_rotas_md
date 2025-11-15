@@ -153,6 +153,14 @@ public class GerenciaRotas {
         return fatorial(n) / fatorial(n-k);
     }
 
+    //funcao de combinacao
+    public static long combinacao(int n,int k){
+        //amor aqui tmb tem q ter o tratamento de excessao com throw quando k<n ou k for negativo
+        //combinacao => C(n,k) = n! dividido por (k! * (n-k)!) (dps confwre se ta certo):
+        return fatorial(n)/(fatorial(k) * fatorial(n-k));
+
+    }
+
 
 
 
