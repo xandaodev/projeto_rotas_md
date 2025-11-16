@@ -1,4 +1,3 @@
-package projeto_rotas_md.src;
 import java.util.*;
 
 public class Main {
@@ -7,7 +6,7 @@ public class Main {
         GerenciaRotas gerenciador = new GerenciaRotas();
 
         try{
-            gerenciador.lerArquivoEntrada("C:\\Users\\User\\Desktop\\Java\\md\\projeto_rotas_md\\src\\instancia.txt");
+            gerenciador.lerArquivoEntrada("instancia.txt");
             gerenciador.preencheMatrizDistancias();
         }catch(Excecoes e){
             System.out.println("erro ao abrir o arquivo " + e.getMessage());
@@ -19,9 +18,9 @@ public class Main {
         boolean rodando =true;
 
         while(rodando){
-            System.out.println("1 - resolver Caixeiro Viajante ");
-            System.out.println("2 - calcular analise combinatoria");
-            System.out.println("0 - sair");
+            System.out.println("1 - Resolver Caixeiro Viajante ");
+            System.out.println("2 - Calcular Análise Combinatoria");
+            System.out.println("0 - Sair");
             System.out.print("escolha uma opcao: ");
 
             int opcao = scanner.nextInt();
