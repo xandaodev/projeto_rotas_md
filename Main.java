@@ -16,17 +16,20 @@ public class Main {
         
         Scanner scanner = new Scanner(System.in);
         boolean rodando =true;
-        System.out.print("\n");
-        System.out.println("--- Bem vindo ao sistema de Gerenciamento de Rotas via TSP! ---");
+        //System.out.print("\n");
+        System.out.println("\n========================================================");
+        System.out.println("--- Bem vindo ao Sistema de Gerenciamento de Rotas ---");
+        System.out.println("========================================================");
 
         while(rodando){
-            System.out.println("---------------------------------------");
+            System.out.println("\n             MENU PRINCIPAL");
+            System.out.println("----------------------------------------");
             System.out.println("1 - Resolver Caixeiro Viajante ");
             System.out.println("2 - Calcular Análise Combinatoria");
             System.out.println("0 - Sair");
             System.out.println("---------------------------------------");
 
-            System.out.print("Escolha uma opção: ");
+            System.out.print("Escolha uma opção: > ");
 
             int opcao = scanner.nextInt();
 
@@ -36,10 +39,11 @@ public class Main {
                     int idCidadeInicial =scanner.nextInt();
                     int indiceCidadeInicial = idCidadeInicial - 1;//ajustando indice
                     if(indiceCidadeInicial <0 || indiceCidadeInicial >= gerenciador.getCidades().size()) {
-                            throw new IllegalArgumentException("\nEssa cidade não existe, escolha um numero entre 1 e " + gerenciador.getCidades().size() + "\n");
+                            throw new IllegalArgumentException("\nCidade inválida, escolha um numero entre 1 e " + gerenciador.getCidades().size() + "\n");
                     }else{
                             gerenciador.TSP(indiceCidadeInicial);
                             System.out.print("\n");
+                            System.out.println(".................................................................");
                             System.out.println("Menor distância encontrada: " + gerenciador.getMenorDistancia());
                             //formatando a lista de ids, como eu ja tinha feito :
                             List<Integer> melhorCaminhoIndices =gerenciador.getMelhorCaminho();
@@ -49,6 +53,7 @@ public class Main {
                             }
                             System.out.print("\n");
                             System.out.println("Melhor caminho: " + melhorCaminhoIDs);
+                            System.out.println(".................................................................");
                             System.out.print("\n");
                     }
                     break;
@@ -56,31 +61,42 @@ public class Main {
                     System.out.println("1 - Fatorial (n!)");
                     System.out.println("2 - Permutação");
                     System.out.println("3 - Combinção");
-                    System.out.print("Escolha o cálculo: ");
+                    System.out.print("Escolha o cálculo: > ");
                     int tipoCalculo = scanner.nextInt();
                     if(tipoCalculo == 1){
-                            System.out.print("Valor de n: ");
+                            System.out.print("\n");
+                            System.out.print("Valor de n: > ");
                             int n=scanner.nextInt();
                             try{
                                 long result = GerenciaRotas.fatorial(n);
-                                System.out.println("Resultado: " + n + "! = " + result);    
+                                System.out.print("\n");
+                                System.out.println("..................................");
+                                System.out.println("Resultado: " + n + "! = " + result);  
+                                System.out.println("..................................");  
                             }catch(IllegalArgumentException e){
+                                System.out.print("\n");
                                 System.out.println("\nParâmetro inválido!\n");
                                 e.printStackTrace();
                             }
                             
 
                         }else if(tipoCalculo ==2 || tipoCalculo == 3){
-                            System.out.print("Valor de n: ");
+                            System.out.print("\n");
+                            System.out.print("Valor de n: > ");
                             int n = scanner.nextInt();
-                            System.out.print("Valor de k: ");
+                            System.out.print("\n");
+                            System.out.print("Valor de k: > ");
                             int k =scanner.nextInt();
 
                             if(tipoCalculo == 2){
                                 try{
                                     long result = GerenciaRotas.permutacao(n, k);
-                                    System.out.println("Permutação P(" + n + ", " +k + ") = " + result);    
+                                    System.out.print("\n");
+                                    System.out.println("..................................");
+                                    System.out.println("Permutação P(" + n + ", " +k + ") = " + result);  
+                                    System.out.println("..................................");  
                                 }catch(IllegalArgumentException e){
+                                    System.out.print("\n");
                                     System.out.println("\nArgumentos invalidos!\n");
                                     e.printStackTrace();
                                 }
@@ -88,14 +104,19 @@ public class Main {
                             }else{
                                 try{
                                 long result =GerenciaRotas.combinacao(n, k);
-                                System.out.println("Combinação C(" +n + "," +k+ ") = " + result);   
+                                System.out.print("\n");
+                                System.out.println("..................................");  
+                                System.out.println("Combinação C(" +n + "," +k+ ") = " + result); 
+                                System.out.println("..................................");    
                                 }catch(IllegalArgumentException e){
+                                    System.out.print("\n");
                                     System.out.println("\nArgumentos invalidos!\n");
                                     e.printStackTrace();
                                 }
                                 
                             }
                         }else{
+                            System.out.print("\n");
                             System.out.println("\nOpção inválida, escolha 1, 2 ou 3.\n");
                         }
                         break;
