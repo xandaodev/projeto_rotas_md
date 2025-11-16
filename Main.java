@@ -9,7 +9,7 @@ public class Main {
             gerenciador.lerArquivoEntrada("instancia.txt");
             gerenciador.preencheMatrizDistancias();
         }catch(Excecoes e){
-            System.out.println("erro ao abrir o arquivo " + e.getMessage());
+            System.out.println("Erro ao abrir o arquivo " + e.getMessage());
             e.printStackTrace();
             return;
         }
@@ -21,51 +21,51 @@ public class Main {
             System.out.println("1 - Resolver Caixeiro Viajante ");
             System.out.println("2 - Calcular Análise Combinatoria");
             System.out.println("0 - Sair");
-            System.out.print("escolha uma opcao: ");
+            System.out.print("Escolha uma opção: ");
 
             int opcao = scanner.nextInt();
 
             switch(opcao){
                 case 1:
-                    System.out.print("digite a cidade de origem - 1 a " + gerenciador.getCidades().size() + "\n");
+                    System.out.print("Digite a cidade de origem - 1 a " + gerenciador.getCidades().size() + "\n");
                     int idCidadeInicial =scanner.nextInt();
                     int indiceCidadeInicial = idCidadeInicial - 1;//ajustando indice
                     if(indiceCidadeInicial <0 || indiceCidadeInicial >= gerenciador.getCidades().size()) {
-                            throw new IllegalArgumentException("\nessa cidade nao existe, escolha um numero entre 1 e " + gerenciador.getCidades().size() + "\n");
+                            throw new IllegalArgumentException("\nEssa cidade não existe, escolha um numero entre 1 e " + gerenciador.getCidades().size() + "\n");
                     }else{
                             gerenciador.TSP(indiceCidadeInicial);
-                            System.out.println("menor distancia encontrada: " + gerenciador.getMenorDistancia());
+                            System.out.println("Menor distância encontrada: " + gerenciador.getMenorDistancia());
                             //formatando a lista de ids, como eu ja tinha feito :
                             List<Integer> melhorCaminhoIndices =gerenciador.getMelhorCaminho();
                             List<Integer> melhorCaminhoIDs = new ArrayList<>();
                             for(Integer indice : melhorCaminhoIndices){
                                 melhorCaminhoIDs.add(indice);
                             }
-                            System.out.println("melhor caminho: " + melhorCaminhoIDs);
+                            System.out.println("Melhor caminho: " + melhorCaminhoIDs);
                     }
                     break;
                 case 2:
-                    System.out.println("1 - fatorial (n!)");
-                    System.out.println("2 - permutação");
-                    System.out.println("3 - combincao");
-                    System.out.print("escolha o calculo: ");
+                    System.out.println("1 - Fatorial (n!)");
+                    System.out.println("2 - Permutação");
+                    System.out.println("3 - Combinção");
+                    System.out.print("Escolha o cálculo: ");
                     int tipoCalculo = scanner.nextInt();
                     if(tipoCalculo == 1){
-                            System.out.print("valor de n: ");
+                            System.out.print("Valor de n: ");
                             int n=scanner.nextInt();
                             try{
                                 long result = GerenciaRotas.fatorial(n);
-                                System.out.println("resultado: " + n + "! = " + result);    
+                                System.out.println("Resultado: " + n + "! = " + result);    
                             }catch(IllegalArgumentException e){
-                                System.out.println("\nparametro invalido!\n");
+                                System.out.println("\nParâmetro inválido!\n");
                                 e.printStackTrace();
                             }
                             
 
                         }else if(tipoCalculo ==2 || tipoCalculo == 3){
-                            System.out.print("valor de n: ");
+                            System.out.print("Valor de n: ");
                             int n = scanner.nextInt();
-                            System.out.print("valor de k: ");
+                            System.out.print("Valor de k: ");
                             int k =scanner.nextInt();
 
                             if(tipoCalculo == 2){
@@ -73,7 +73,7 @@ public class Main {
                                     long result = GerenciaRotas.permutacao(n, k);
                                     System.out.println("Permutação P(" + n + ", " +k + ") = " + result);    
                                 }catch(IllegalArgumentException e){
-                                    System.out.println("\nargumentos invalidos!\n");
+                                    System.out.println("\nArgumentos invalidos!\n");
                                     e.printStackTrace();
                                 }
                                 
@@ -82,21 +82,21 @@ public class Main {
                                 long result =GerenciaRotas.combinacao(n, k);
                                 System.out.println("Combinação C(" +n + "," +k+ ") = " + result);   
                                 }catch(IllegalArgumentException e){
-                                    System.out.println("\nargumentos invalidos!\n");
+                                    System.out.println("\nArgumentos invalidos!\n");
                                     e.printStackTrace();
                                 }
                                 
                             }
                         }else{
-                            System.out.println("\nopcao invalida, escolha 1,2 ou 3.\n");
+                            System.out.println("\nOpção inválida, escolha 1, 2 ou 3.\n");
                         }
                         break;
                 case 0:
                         rodando = false;
-                        System.out.println("saindo do programa");
+                        System.out.println("Saindo do programa...");
                         break;
                 default:
-                        System.out.println("\nopcao invalida, digite outro numero\n");
+                        System.out.println("\nOpcão inválida, digite outro número\n");
                         break;
             }
         }
