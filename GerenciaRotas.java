@@ -91,7 +91,8 @@ public class GerenciaRotas {
             if(distanciaFinal < menorDistancia){
                 menorDistancia = distanciaFinal;
                 copiaLista(caminhoParcial, melhorCaminho);
-                melhorCaminho.add(cidades.get(cidadeInicial).getId());
+                //melhorCaminho.add(cidades.get(cidadeInicial).getId());
+                melhorCaminho.add(cidadeInicial);//MUDANÇA QUE FIZ PRA ARRUMAR O BUG DE INDICE
             }
             return;
 
