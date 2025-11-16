@@ -16,11 +16,16 @@ public class Main {
         
         Scanner scanner = new Scanner(System.in);
         boolean rodando =true;
+        System.out.print("\n");
+        System.out.println("--- Bem vindo ao sistema de Gerenciamento de Rotas via TSP! ---");
 
         while(rodando){
+            System.out.println("---------------------------------------");
             System.out.println("1 - Resolver Caixeiro Viajante ");
             System.out.println("2 - Calcular Análise Combinatoria");
             System.out.println("0 - Sair");
+            System.out.println("---------------------------------------");
+
             System.out.print("Escolha uma opção: ");
 
             int opcao = scanner.nextInt();
@@ -34,14 +39,17 @@ public class Main {
                             throw new IllegalArgumentException("\nEssa cidade não existe, escolha um numero entre 1 e " + gerenciador.getCidades().size() + "\n");
                     }else{
                             gerenciador.TSP(indiceCidadeInicial);
+                            System.out.print("\n");
                             System.out.println("Menor distância encontrada: " + gerenciador.getMenorDistancia());
                             //formatando a lista de ids, como eu ja tinha feito :
                             List<Integer> melhorCaminhoIndices =gerenciador.getMelhorCaminho();
                             List<Integer> melhorCaminhoIDs = new ArrayList<>();
                             for(Integer indice : melhorCaminhoIndices){
-                                melhorCaminhoIDs.add(indice);
+                                melhorCaminhoIDs.add(indice+1);//ADICIONEI O +1 AQUI
                             }
+                            System.out.print("\n");
                             System.out.println("Melhor caminho: " + melhorCaminhoIDs);
+                            System.out.print("\n");
                     }
                     break;
                 case 2:

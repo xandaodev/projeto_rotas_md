@@ -30,7 +30,7 @@ public class GerenciaRotas {
                 Cidade novaCidade = new Cidade(i, x, y);
                 this.cidades.add(novaCidade);
             }
-            System.out.println("arquivo "+ entrada + " lido com sucesso. " + this.cidades.size()+ " cidades carregadas.");
+            //System.out.println("arquivo "+ entrada + " lido com sucesso. " + this.cidades.size()+ " cidades carregadas.");
 
         }catch(FileNotFoundException e){
             e.printStackTrace();
@@ -106,7 +106,8 @@ public class GerenciaRotas {
 
                     if(novaDist<menorDistancia){
                     visitado[i] = true;
-                    caminhoParcial.add(cidades.get(i).getId());  //add a cidade ao registro do caminho percorrido
+                    //caminhoParcial.add(cidades.get(i).getId());  //add a cidade ao registro do caminho percorrido
+                    caminhoParcial.add(i);//MUDANÇA QUE FIZ PRA TENTAR ARRUMAR BUG
                     
                     buscaTSP_recursiva(i, cidadeInicial, novaQtd, novaDist, visitado, caminhoParcial);
                     //backtracking
