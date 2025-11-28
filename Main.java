@@ -35,13 +35,28 @@ public class Main {
 
             switch(opcao){
                 case 1:
+                    //alexandre adicionei aqui um "\n" pra ficar mais espaçado no terminal
+                    System.out.print("\n");
                     System.out.print("Digite a cidade de origem - 1 a " + gerenciador.getCidades().size() + "\n");
                     int idCidadeInicial =scanner.nextInt();
                     int indiceCidadeInicial = idCidadeInicial - 1;//ajustando indice
-                    if(indiceCidadeInicial <0 || indiceCidadeInicial >= gerenciador.getCidades().size()) {
+                    // alexandre adicionando agr a leitura da cidade de destino tmb 
+                    //alexandre adicionei aqui um "\n" pra ficar mais espaçado no terminal
+                    System.out.print("\n");
+                    System.out.print("Digite a cidade de destino - 1 a " + gerenciador.getCidades().size() + "\n");
+                    int idDestino = scanner.nextInt();
+                    int indiceDestino = idDestino - 1;
+
+                    // verificando se origem e destino sao iguais
+
+                    if(indiceCidadeInicial <0 || indiceCidadeInicial >= gerenciador.getCidades().size() || 
+                       indiceDestino < 0 || indiceDestino >= gerenciador.getCidades().size()) {
                             throw new IllegalArgumentException("\nCidade inválida, escolha um numero entre 1 e " + gerenciador.getCidades().size() + "\n");
+                    } else if (indiceCidadeInicial == indiceDestino) {
+                            System.out.println("\nA origem e o destino não podem ser iguais.\n");
                     }else{
-                            gerenciador.TSP(indiceCidadeInicial);
+                            gerenciador.TSP(indiceCidadeInicial, indiceDestino);
+
                             System.out.print("\n");
                             System.out.println(".................................................................");
                             System.out.println("Menor distância encontrada: " + gerenciador.getMenorDistancia());
@@ -49,7 +64,7 @@ public class Main {
                             List<Integer> melhorCaminhoIndices =gerenciador.getMelhorCaminho();
                             List<Integer> melhorCaminhoIDs = new ArrayList<>();
                             for(Integer indice : melhorCaminhoIndices){
-                                melhorCaminhoIDs.add(indice+1);//ADICIONEI O +1 AQUI
+                                melhorCaminhoIDs.add(indice+1);
                             }
                             System.out.print("\n");
                             System.out.println("Melhor caminho: " + melhorCaminhoIDs);
@@ -132,3 +147,21 @@ public class Main {
         scanner.close();
     }
 }
+// te amo meu amor <3
+
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░▄▄▄▄▄▄░░░░▄▄▄░░░░▄▄▄░░░░░░
+░░░▀████▀░░▄█████▄▄█████▄░░░░
+░░░░░██░░░████████████████░░░
+░░░░░██░░░████████████████░░░
+░░░░░██░░░▀██████████████▀░░░
+░░░░▄██▄░░░░▀██████████▀░░░░░
+░░░██████░░░░░▀██████▀░░░░░░░
+░░░░░░░░░░░░░░░░▀██▀░░░░░░░░░
+░░░░░░░░░░░░░▄▄░░░░░░░░░░░░░░
+░░▀███░███▀▄█▀▀█▄░▀██▀░▀██▀░░
+░░░░▀█▄█▀░▄█░░░░█▄░██░░░██░░░
+░░░░░░█░░░██░░░░██░██░░░██░░░
+░░░░░░█░░░░█▄░░▄█░░██░░░██░░░
+░░░░▄███▄░░░▀██▀░░░░▀███▀░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░

@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -59,21 +58,22 @@ public class GerenciaRotas {
     protected int contadorCaminhos; //contabiliza a quantidade de caminhos (COMPLETOS) possíveis
     protected List<Integer> melhorCaminho;
 
-    public void TSP (int indiceCidadeInicial){      //setup pra recursão
-        boolean[] visitado = new boolean[numeroCidades];    //armazena quais cidades já foram visitadas
-        visitado[indiceCidadeInicial] = true;   //por padrão já inicializa tudo em false
+    public void TSP(int indiceCidadeInicial, int indiceCidadeDestino) {
+    
+    boolean[] visitado = new boolean[numeroCidades];
+    visitado[indiceCidadeInicial] = true;
 
-        List<Integer> caminhoParcial = new ArrayList();     //armazena o caminho percorrido até então
-        caminhoParcial.add(indiceCidadeInicial);    //começa sempre com a cidade inicial (ponto de partida)
-        double distanciaParcial = 0.0;
-        int n = this.numeroCidades;
+    List<Integer> caminhoParcial = new ArrayList<>(); //armazena o caminho percorrido até então
+    caminhoParcial.add(indiceCidadeInicial); //começa sempre com a cidade inicial 
+    
+    double distanciaParcial = 0.0;
+    
+    menorDistancia = Double.MAX_VALUE; //vai sendo atualizado no final de todas as iterações vai armazenar o menor valor de todos
+    melhorCaminho = new ArrayList<>(); //declara uma nova lista zerada para cada iteração
 
-        menorDistancia = Double.MAX_VALUE;     //vai sendo atualizado. Ao final de todas as iterações vai armazenar o menor valor de todos
-        contadorCaminhos = 0;           
-        melhorCaminho = new ArrayList<>();  //declara uma nova lista zerada para cada iteração
+    buscaTSP_recursiva(indiceCidadeInicial, indiceCidadeInicial, indiceCidadeDestino, 1, distanciaParcial, visitado, caminhoParcial);
+}
 
-        buscaTSP_recursiva(indiceCidadeInicial, indiceCidadeInicial, 1, distanciaParcial, visitado, caminhoParcial);
-    }
 
     public void copiaLista(List<Integer> origem, List<Integer> destino){
         destino.clear();
@@ -81,44 +81,42 @@ public class GerenciaRotas {
     }
 
     //onde estou, por onde já passei, quanto já andei
-    public void buscaTSP_recursiva(int cidadeAtual, int cidadeInicial, int qtdVisitadas, double distanciaParcial, boolean[] visitado, List<Integer> caminhoParcial){
+    // alexandre: adicionei cidadeDestino   para bater com a chamada do método TSP 
+    public void buscaTSP_recursiva(int cidadeAtual, int cidadeInicial, int cidadeDestino, int qtdVisitadas, double distanciaParcial, boolean[] visitado, List<Integer> caminhoParcial){
 
         //caso base
-        if(qtdVisitadas == numeroCidades){     //caso base -> já percorreu todas as cidades
-            double distanciaFinal = matrizDistancias[cidadeAtual][cidadeInicial] + distanciaParcial;
-            contadorCaminhos++;     //+1 possível caminho registrado
-
-            if(distanciaFinal < menorDistancia){
+        //alexandre mudanças nova versao edimilson
+        if (qtdVisitadas == numeroCidades) {
+        // so aceita se a cidade atual for igual ao destino
+        if (cidadeAtual == cidadeDestino) {
+            double distanciaFinal = distanciaParcial; 
+            if (distanciaFinal < menorDistancia){
                 menorDistancia = distanciaFinal;
                 copiaLista(caminhoParcial, melhorCaminho);
-                //melhorCaminho.add(cidades.get(cidadeInicial).getId());
-                melhorCaminho.add(cidadeInicial);//MUDANÇA QUE FIZ PRA ARRUMAR O BUG DE INDICE
             }
-            return;
+        }
+        return;
+    }
+    for (int i = 0; i < numeroCidades; i++) {
+        if (!visitado[i]) {
+            // se a gente tentar visitar a cidade destino antes de todas as outras, o caminho fica invalido
+            if (i == cidadeDestino && qtdVisitadas < numeroCidades - 1) {
+                continue; 
+            }
 
-        //recursão
-        }else{     
-            for(int i = 0; i < numeroCidades; i++){
-//i é equivalente à 'próxima cidade'
-                if(visitado[i] == true) continue;   //cidade ja foi visitada
-                else if(visitado[i] == false){
-                    int novaQtd = qtdVisitadas + 1;     //atualiza a quantidade de cidades visitadas
-                    double novaDist = distanciaParcial + matrizDistancias[cidadeAtual][i];   //incrementa a distancia parcial
+            double novaDist = distanciaParcial + matrizDistancias[cidadeAtual][i];
 
-                    if(novaDist<menorDistancia){
-                    visitado[i] = true;
-                    //caminhoParcial.add(cidades.get(i).getId());  //add a cidade ao registro do caminho percorrido
-                    caminhoParcial.add(i);//MUDANÇA QUE FIZ PRA TENTAR ARRUMAR BUG
-                    
-                    buscaTSP_recursiva(i, cidadeInicial, novaQtd, novaDist, visitado, caminhoParcial);
-                    //backtracking
-                    caminhoParcial.remove(caminhoParcial.size() - 1);
-                    visitado[i] = false;
-                    }
-                }
+            if (novaDist < menorDistancia){
+                visitado[i] = true;
+                caminhoParcial.add(i);
+                buscaTSP_recursiva(i, cidadeInicial, cidadeDestino, qtdVisitadas + 1, novaDist, visitado, caminhoParcial);
+                caminhoParcial.remove(caminhoParcial.size() - 1);
+                visitado[i] = false;
             }
         }
     }
+}
+
 
     public double getMenorDistancia(){
         return this.menorDistancia;
@@ -155,3 +153,7 @@ public class GerenciaRotas {
         return fatorial(n)/(fatorial(k) * fatorial(n-k));
     }
 }
+
+
+
+// te amo meu amor <3
