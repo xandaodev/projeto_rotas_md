@@ -3,6 +3,8 @@ import java.util.*;
 public class Main {
     public static void main(String[] args){
 
+// Main para o Problema do Caixeiro Viajante
+    
         GerenciaRotas gerenciador = new GerenciaRotas();
 
         try{
@@ -35,20 +37,17 @@ public class Main {
 
             switch(opcao){
                 case 1:
-                    //alexandre adicionei aqui um "\n" pra ficar mais espaçado no terminal
                     System.out.print("\n");
                     System.out.print("Digite a cidade de origem - 1 a " + gerenciador.getCidades().size() + "\n");
                     int idCidadeInicial =scanner.nextInt();
-                    int indiceCidadeInicial = idCidadeInicial - 1;//ajustando indice
-                    // alexandre adicionando agr a leitura da cidade de destino tmb 
-                    //alexandre adicionei aqui um "\n" pra ficar mais espaçado no terminal
+                    int indiceCidadeInicial = idCidadeInicial - 1; //ajustando indice
+
                     System.out.print("\n");
                     System.out.print("Digite a cidade de destino - 1 a " + gerenciador.getCidades().size() + "\n");
                     int idDestino = scanner.nextInt();
                     int indiceDestino = idDestino - 1;
 
                     // verificando se origem e destino sao iguais
-
                     if(indiceCidadeInicial <0 || indiceCidadeInicial >= gerenciador.getCidades().size() || 
                        indiceDestino < 0 || indiceDestino >= gerenciador.getCidades().size()) {
                             throw new IllegalArgumentException("\nCidade inválida, escolha um numero entre 1 e " + gerenciador.getCidades().size() + "\n");
@@ -60,7 +59,7 @@ public class Main {
                             System.out.print("\n");
                             System.out.println(".................................................................");
                             System.out.println("Menor distância encontrada: " + gerenciador.getMenorDistancia());
-                            //formatando a lista de ids, como eu ja tinha feito :
+
                             List<Integer> melhorCaminhoIndices =gerenciador.getMelhorCaminho();
                             List<Integer> melhorCaminhoIDs = new ArrayList<>();
                             for(Integer indice : melhorCaminhoIndices){
@@ -94,7 +93,6 @@ public class Main {
                                 e.printStackTrace();
                             }
                             
-
                         }else if(tipoCalculo ==2 || tipoCalculo == 3){
                             System.out.print("\n");
                             System.out.print("Valor de n: > ");
@@ -147,21 +145,3 @@ public class Main {
         scanner.close();
     }
 }
-// te amo meu amor <3
-
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-░░░▄▄▄▄▄▄░░░░▄▄▄░░░░▄▄▄░░░░░░
-░░░▀████▀░░▄█████▄▄█████▄░░░░
-░░░░░██░░░████████████████░░░
-░░░░░██░░░████████████████░░░
-░░░░░██░░░▀██████████████▀░░░
-░░░░▄██▄░░░░▀██████████▀░░░░░
-░░░██████░░░░░▀██████▀░░░░░░░
-░░░░░░░░░░░░░░░░▀██▀░░░░░░░░░
-░░░░░░░░░░░░░▄▄░░░░░░░░░░░░░░
-░░▀███░███▀▄█▀▀█▄░▀██▀░▀██▀░░
-░░░░▀█▄█▀░▄█░░░░█▄░██░░░██░░░
-░░░░░░█░░░██░░░░██░██░░░██░░░
-░░░░░░█░░░░█▄░░▄█░░██░░░██░░░
-░░░░▄███▄░░░▀██▀░░░░▀███▀░░░░
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
