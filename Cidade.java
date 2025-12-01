@@ -9,7 +9,7 @@ public class Cidade {
         this.y = y;
     }
 
-//getters e setters
+    //getters e setters
     public int getId(){return id;}
     public double getx(){return x;}
     public double gety(){return y;}
@@ -17,7 +17,7 @@ public class Cidade {
     public void setX(double x){this.x =x;}
     public void setY(double y){this.y =y;}
 
-//formula da distancia euclidiana : raiz de [( (x2-x1)^2 + (y2-y1)^2 )]
+    //formula da distancia euclidiana : raiz de [( (x2-x1)^2 + (y2-y1)^2 )]
     //x = origem e segundox = destino   
     public double calcularDistanciaEuclidiana(Cidade segundo){
         double segundox = segundo.getx();
@@ -28,7 +28,7 @@ public class Cidade {
         return Math.sqrt(deltax + deltay);
     }
 
-//toString
+    //toString
 
     public String toString(){
         return String.valueOf(this.id);

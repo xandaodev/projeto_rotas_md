@@ -40,6 +40,7 @@ public class GerenciaRotas {
         }
     }
 
+    //funcao que prrenche a matriz de distancias
     public void preencheMatrizDistancias(){
         this.matrizDistancias = new double[this.numeroCidades][this.numeroCidades]; 
         
@@ -62,19 +63,18 @@ public class GerenciaRotas {
     protected List<Integer> melhorCaminho;
 
     public void TSP(int indiceCidadeInicial, int indiceCidadeDestino) {
-    
-    boolean[] visitado = new boolean[numeroCidades];
-    visitado[indiceCidadeInicial] = true;
+        boolean[] visitado = new boolean[numeroCidades];
+        visitado[indiceCidadeInicial] = true;
 
-    List<Integer> caminhoParcial = new ArrayList<>(); //armazena o caminho percorrido até então
-    caminhoParcial.add(indiceCidadeInicial); //começa sempre com a cidade inicial 
-    
-    double distanciaParcial = 0.0;
-    
-    menorDistancia = Double.MAX_VALUE; //vai sendo atualizado no final de todas as iterações vai armazenar o menor valor de todos
-    melhorCaminho = new ArrayList<>(); //declara uma nova lista zerada para cada iteração
+        List<Integer> caminhoParcial = new ArrayList<>(); //armazena o caminho percorrido até então
+        caminhoParcial.add(indiceCidadeInicial); //começa sempre com a cidade inicial 
+        
+        double distanciaParcial = 0.0;
+        
+        menorDistancia = Double.MAX_VALUE; //vai sendo atualizado no final de todas as iterações vai armazenar o menor valor de todos
+        melhorCaminho = new ArrayList<>(); //declara uma nova lista zerada para cada iteração
 
-    buscaTSP_recursiva(indiceCidadeInicial, indiceCidadeInicial, indiceCidadeDestino, 1, distanciaParcial, visitado, caminhoParcial);
+        buscaTSP_recursiva(indiceCidadeInicial, indiceCidadeInicial, indiceCidadeDestino, 1, distanciaParcial, visitado, caminhoParcial);
     }
 
     public void copiaLista(List<Integer> origem, List<Integer> destino){
@@ -86,13 +86,13 @@ public class GerenciaRotas {
     public void buscaTSP_recursiva(int cidadeAtual, int cidadeInicial, int cidadeDestino, int qtdVisitadas, double distanciaParcial, boolean[] visitado, List<Integer> caminhoParcial){
         //caso base
         if (qtdVisitadas == numeroCidades) {
-        if (cidadeAtual == cidadeDestino) {
-            double distanciaFinal = distanciaParcial; 
-            if (distanciaFinal < menorDistancia){
-                menorDistancia = distanciaFinal;
-                copiaLista(caminhoParcial, melhorCaminho);
+            if (cidadeAtual == cidadeDestino) {
+                double distanciaFinal = distanciaParcial; 
+                if (distanciaFinal < menorDistancia){
+                    menorDistancia = distanciaFinal;
+                    copiaLista(caminhoParcial, melhorCaminho);
+                }
             }
-        }
         return;
         }
         for (int i = 0; i < numeroCidades; i++) {
@@ -102,7 +102,7 @@ public class GerenciaRotas {
                     continue; 
                 }
             double novaDist = distanciaParcial + matrizDistancias[cidadeAtual][i];
-
+                //aqui verifica que a nova distancia é menor que a menor distancia ja encontrada
                 if (novaDist < menorDistancia){
                     visitado[i] = true;
                     caminhoParcial.add(i);
