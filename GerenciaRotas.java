@@ -6,6 +6,10 @@ public class GerenciaRotas {
     protected double[][] matrizDistancias;
     protected int numeroCidades;
 
+// Decidimos implementar o Problema do Caixeiro Viajante.
+// Objetivo: encontrar a menor rota possível que percorra todos os pontos e volte à cidade de origem
+// Estratégia: cálculo das rotas com base em matriz de distâncias
+
 // inicializa as cidades
     public GerenciaRotas(){
         this.cidades = new ArrayList<>();
@@ -29,20 +33,19 @@ public class GerenciaRotas {
                 Cidade novaCidade = new Cidade(i, x, y);
                 this.cidades.add(novaCidade);
             }
-            //System.out.println("arquivo "+ entrada + " lido com sucesso. " + this.cidades.size()+ " cidades carregadas.");
 
         }catch(FileNotFoundException e){
             e.printStackTrace();
-            throw new Excecoes("arquivo" + entrada + "nao encontrado", e);  //joga a exceção pro segundo construtor da classe Excecoes
+            throw new Excecoes("arquivo" + entrada + "nao encontrado", e); 
         }
     }
 
     public void preencheMatrizDistancias(){
-        this.matrizDistancias = new double[this.numeroCidades][this.numeroCidades]; //depende da leitura correta do arquivo
+        this.matrizDistancias = new double[this.numeroCidades][this.numeroCidades]; 
         
         for(int i=0; i<this.numeroCidades; i++){
             for(int j=0; j<this.numeroCidades; j++){
-                Cidade cidadei = this.cidades.get(i);   //acessa a lista nas posições i e j
+                Cidade cidadei = this.cidades.get(i);  
                 Cidade cidadej = this.cidades.get(j);
                 double distancia = cidadei.calcularDistanciaEuclidiana(cidadej);
                 this.matrizDistancias[i][j]= distancia;
@@ -72,8 +75,7 @@ public class GerenciaRotas {
     melhorCaminho = new ArrayList<>(); //declara uma nova lista zerada para cada iteração
 
     buscaTSP_recursiva(indiceCidadeInicial, indiceCidadeInicial, indiceCidadeDestino, 1, distanciaParcial, visitado, caminhoParcial);
-}
-
+    }
 
     public void copiaLista(List<Integer> origem, List<Integer> destino){
         destino.clear();
@@ -81,13 +83,9 @@ public class GerenciaRotas {
     }
 
     //onde estou, por onde já passei, quanto já andei
-    // alexandre: adicionei cidadeDestino   para bater com a chamada do método TSP 
     public void buscaTSP_recursiva(int cidadeAtual, int cidadeInicial, int cidadeDestino, int qtdVisitadas, double distanciaParcial, boolean[] visitado, List<Integer> caminhoParcial){
-
         //caso base
-        //alexandre mudanças nova versao edimilson
         if (qtdVisitadas == numeroCidades) {
-        // so aceita se a cidade atual for igual ao destino
         if (cidadeAtual == cidadeDestino) {
             double distanciaFinal = distanciaParcial; 
             if (distanciaFinal < menorDistancia){
@@ -96,27 +94,25 @@ public class GerenciaRotas {
             }
         }
         return;
-    }
-    for (int i = 0; i < numeroCidades; i++) {
-        if (!visitado[i]) {
-            // se a gente tentar visitar a cidade destino antes de todas as outras, o caminho fica invalido
-            if (i == cidadeDestino && qtdVisitadas < numeroCidades - 1) {
-                continue; 
-            }
-
+        }
+        for (int i = 0; i < numeroCidades; i++) {
+            if (!visitado[i]) {
+                // se a gente tentar visitar a cidade destino antes de todas as outras, o caminho fica invalido
+                if (i == cidadeDestino && qtdVisitadas < numeroCidades - 1) {
+                    continue; 
+                }
             double novaDist = distanciaParcial + matrizDistancias[cidadeAtual][i];
 
-            if (novaDist < menorDistancia){
-                visitado[i] = true;
-                caminhoParcial.add(i);
-                buscaTSP_recursiva(i, cidadeInicial, cidadeDestino, qtdVisitadas + 1, novaDist, visitado, caminhoParcial);
-                caminhoParcial.remove(caminhoParcial.size() - 1);
-                visitado[i] = false;
+                if (novaDist < menorDistancia){
+                    visitado[i] = true;
+                    caminhoParcial.add(i);
+                    buscaTSP_recursiva(i, cidadeInicial, cidadeDestino, qtdVisitadas + 1, novaDist, visitado, caminhoParcial);
+                    caminhoParcial.remove(caminhoParcial.size() - 1);
+                    visitado[i] = false;
+                }
             }
         }
     }
-}
-
 
     public double getMenorDistancia(){
         return this.menorDistancia;
@@ -126,14 +122,12 @@ public class GerenciaRotas {
     }
     
     //funcoes dos dados e análises:
-
     public static long fatorial(int n){
-        //aqui tem que ter a condicao tmb caso o n for 0, ai entra aquelas parada de tratamento de excessao e throw
         if(n==0 || n==1){
             return 1;
         }else if(n < 0)
             throw new IllegalArgumentException();   //parâmetro inválido
-        long resultado =1;//long pra evitar qualquer problema
+        long resultado =1;  //long pra evitar qualquer problema
         for(int i=2;i <=n;i++){
             resultado *=i;
         }
@@ -153,7 +147,3 @@ public class GerenciaRotas {
         return fatorial(n)/(fatorial(k) * fatorial(n-k));
     }
 }
-
-
-
-// te amo meu amor <3
